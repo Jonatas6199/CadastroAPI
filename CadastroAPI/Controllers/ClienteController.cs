@@ -37,16 +37,15 @@ namespace CadastroAPI.Controllers
 
         [HttpPost]
         [Route("CadastraCliente")]
-        public string CadastraCliente()
+        public bool CadastraCliente()
         {
             using (StreamReader reader = new StreamReader(Request.Body))
             {
                 string jsonBody = reader.ReadToEnd();
                 ClienteAuxiliar clienteDesserializado =  JsonConvert.DeserializeObject<ClienteAuxiliar>(jsonBody);
-                ClienteBusiness.CadastraCliente(clienteDesserializado, apiContext);
-
+                bool result = ClienteBusiness.CadastraCliente(clienteDesserializado, apiContext);
+                return result;
             }
-            return "Cadastrado!";
         }
     }
 }
